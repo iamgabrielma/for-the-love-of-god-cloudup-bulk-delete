@@ -22,9 +22,15 @@ while count < imagesToDelete:
 	print('Deleting image:' + str(count) + ' - ' + browser.current_url + '...')
 	time.sleep(1)
 
-	browser.find_element_by_xpath('/html/body/div[1]/div[2]/div[1]/div[1]/div/a').click()
-	browser.find_element_by_xpath('/html/body/div[1]/div[1]/div[2]/div[3]/a').click()
-	print(browser.current_url + ' deleted successfully')
-	browser.find_element_by_xpath('/html/body/div[9]/div/div/div/div[2]/form/button').click()
-	time.sleep(1)
-	count += 1 
+	try:
+		browser.find_element_by_xpath('/html/body/div[1]/div[2]/div[1]/div[1]/div/a').click()
+		browser.find_element_by_xpath('/html/body/div[1]/div[1]/div[2]/div[3]/a').click()
+		print(browser.current_url + ' deleted successfully')
+		browser.find_element_by_xpath('/html/body/div[9]/div/div/div/div[2]/form/button').click()
+		time.sleep(1)
+		count += 1 
+	except:
+		print('Woop! ' + str(count) + ' - ' + browser.current_url + ' was not deleted, will try again soon. Next one!')
+		browser.get('https://cloudup.com/dashboard')
+		time.sleep(1)
+		count += 1 
